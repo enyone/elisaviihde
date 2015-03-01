@@ -18,13 +18,16 @@ def getxmlfooter():
 
 def getxmltrack(recording, uri):
   return """<track><location>%s</location><title>%s</title><creator>Elisa Viihde</creator>
-            <album>%s</album><annotation>%s</annotation>
+            <album>%s</album><annotation>%s</annotation><duration>%d</duration>
+            <image>%s</image>
             <extension application="http://www.videolan.org/vlc/playlist/0"><vlc:id>%d</vlc:id>
             <vlc:option>network-caching=1000</vlc:option></extension></track>
          """ % (cgi.escape(uri),
                 recording["name"],
                 recording["serviceName"] + " " + recording["startTimeFormatted"],
                 recording["description"] if "description" in recording else "",
+                recording["duration"],
+                recording["thumbnail"] if "thumbnail" in recording else "",
                 recording["programId"])
 
 def main():
