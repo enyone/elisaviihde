@@ -16,8 +16,8 @@ def getxmlfooter():
             </extension></playlist>
          """
 
-def getxmltrack(recording, uri):
-  return """<track><location>%s</location><title>%s</title><creator>Elisa Viihde</creator>
+def getxmltrack(folder, recording, uri):
+  return """<track><location>%s</location><title>%s</title><creator>%s</creator>
             <album>%s</album><annotation>%s</annotation><duration>%d</duration>
             <image>%s</image>
             <extension application="http://www.videolan.org/vlc/playlist/0"><vlc:id>%d</vlc:id>
@@ -25,6 +25,7 @@ def getxmltrack(recording, uri):
          """ % (cgi.escape(uri),
                 cgi.escape(recording["name"]),
                 cgi.escape(recording["serviceName"] + " " + recording["startTimeFormatted"]),
+                cgi.escape(folder["name"]) if folder and "name" in folder else "",
                 cgi.escape(recording["description"]) if "description" in recording else "",
                 recording["duration"],
                 cgi.escape(recording["thumbnail"]) if "thumbnail" in recording else "",
@@ -77,11 +78,19 @@ def main():
   filehandle = open(outputfile, 'w')
   filehandle.write(getxmlheader())
   
-  # Read and print recording folders
+  # Read top directory and persist to a file
   recordings = elisa.getrecordings(0)
   for recording in recordings:
     streamuri = elisa.getstreamuri(recording["programId"])
-    filehandle.write(getxmltrack(recording, streamuri).encode('utf8'))
+    filehandle.write(getxmltrack(None, recording, streamuri).encode('utf8'))
+
+  # Walk sub-directories recursively and persist to a file
+  folders = elisa.getfolders()
+  for folder in folders:
+    recordings = elisa.getrecordings(folder["id"])
+    for recording in recordings:
+      streamuri = elisa.getstreamuri(recording["programId"])
+      filehandle.write(getxmltrack(folder, recording, streamuri).encode('utf8'))
   
   filehandle.write(getxmlfooter())
   filehandle.close()
