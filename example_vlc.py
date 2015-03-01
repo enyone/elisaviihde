@@ -23,11 +23,11 @@ def getxmltrack(recording, uri):
             <extension application="http://www.videolan.org/vlc/playlist/0"><vlc:id>%d</vlc:id>
             <vlc:option>network-caching=1000</vlc:option></extension></track>
          """ % (cgi.escape(uri),
-                recording["name"],
-                recording["serviceName"] + " " + recording["startTimeFormatted"],
-                recording["description"] if "description" in recording else "",
+                cgi.escape(recording["name"]),
+                cgi.escape(recording["serviceName"] + " " + recording["startTimeFormatted"]),
+                cgi.escape(recording["description"]) if "description" in recording else "",
                 recording["duration"],
-                recording["thumbnail"] if "thumbnail" in recording else "",
+                cgi.escape(recording["thumbnail"]) if "thumbnail" in recording else "",
                 recording["programId"])
 
 def main():
