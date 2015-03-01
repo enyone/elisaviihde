@@ -20,6 +20,6 @@ Found recordings from folder 3603265:
 1811241: Ajankohtainen kakkonen (ti 24.02.2015 21.00)
 1797570: Ajankohtainen kakkonen (ke 18.02.2015 14.45)
 
-Found stream uri from recording '1812084':
+Found stream uri from recording 1812084:
 http://netpvrpa.cdn.elisaviihde.fi/stream.php?id=1812084&...
 ```
