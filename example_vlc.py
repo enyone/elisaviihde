@@ -78,13 +78,10 @@ def main():
   filehandle.write(getxmlheader())
   
   # Read and print recording folders
-  folders = elisa.getfolders()
-  
-  for folder in folders:
-    recordings = elisa.getrecordings(folder["id"])
-    for recording in recordings:
-      streamuri = elisa.getstreamuri(recording["programId"])
-      filehandle.write(getxmltrack(recording, streamuri).encode('utf8'))
+  recordings = elisa.getrecordings(0)
+  for recording in recordings:
+    streamuri = elisa.getstreamuri(recording["programId"])
+    filehandle.write(getxmltrack(recording, streamuri).encode('utf8'))
   
   filehandle.write(getxmlfooter())
   filehandle.close()
