@@ -1,7 +1,7 @@
 Elisaviihde
 =====
 
-Elisa Viihde API usage example with Python
+**Elisa Viihde Python library with usage examples**
 
 License: GPLv3 http://www.gnu.org/copyleft/gpl.html
 
