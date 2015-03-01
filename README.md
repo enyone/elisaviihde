@@ -5,6 +5,10 @@ Elisa Viihde API usage example with Python
 
 License: GPLv3 http://www.gnu.org/copyleft/gpl.html
 
+Requires: http://docs.python-requests.org/
+
+Developed with: Python 2.7.6
+
 Simple example
 -----
 ```
