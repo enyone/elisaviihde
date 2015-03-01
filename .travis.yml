@@ -1,5 +1,5 @@
 language: python
 python:
   - "2.7"
-install: "pip install requests"
+install: "pip install requests httmock"
 script: nosetests
