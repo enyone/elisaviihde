@@ -96,7 +96,7 @@ def main():
   recUri = session.get(baseUrl + "/tallenteet/katso/" + str(recordingInfo[0]["programId"]))
   uri = recUri.text
   
-  print "\nFound stream uri from recording '" + str(recordingInfo[0]["programId"]) + "':"
+  print "\nFound stream uri from recording " + str(recordingInfo[0]["programId"]) + ":"
   for line in uri.split("\n"):
     if "new Player" in line:
       uri = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)[0]
