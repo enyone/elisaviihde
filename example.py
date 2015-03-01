@@ -1,3 +1,5 @@
+# Elisa Viihde API Python implementation usage demo
+
 import getopt, sys, elisaviihde
 
 def main():

@@ -7,83 +7,97 @@ import requests, json, re
 class elisaviihde:
   # Init args
   verbose = False
-  baseUrl = "https://beta.elisaviihde.fi"
-  ssoBaseUrl = "https://id.elisa.fi"
+  baseurl = "https://beta.elisaviihde.fi"
+  ssobaseurl = "https://id.elisa.fi"
   session = None
-  authCode = None
-  userInfo = None
+  authcode = None
+  userinfo = None
   
   def __init__(self, verbose=False):
     # Init session to store cookies
     self.verbose = verbose
     self.session = requests.Session()
-    self.session.headers.update({"Referer": "https://beta.elisaviihde.fi/"})
+    self.session.headers.update({"Referer": self.baseurl + "/"})
     
     # Make initial request to get session cookie
     if self.verbose: print "Initing session..."
-    self.session.get(self.baseUrl + "/")
+    self.session.get(self.baseurl + "/")
   
   def login(self, username, password):
     # Get sso auth token
     if self.verbose: print "Getting single-sign-on token..."
-    token = self.session.post(self.baseUrl + "/api/sso/authcode",
+    token = self.session.post(self.baseurl + "/api/sso/authcode",
                               data={"username": username},
                               headers={"Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
                                        "X-Requested-With": "XMLHttpRequest"})
     try:
-      self.authCode = token.json()["code"]
+      self.authcode = token.json()["code"]
     except ValueError as err:
       raise Exception("Could not fetch sso token", err)
     
     # Login with token
     if self.verbose: print "Logging in with single-sign-on token..."
-    login = self.session.post(self.ssoBaseUrl + "/sso/login",
+    login = self.session.post(self.ssobaseurl + "/sso/login",
                               data=json.dumps({"accountId": username,
                                                "password": password,
-                                               "authCode": self.authCode,
+                                               "authCode": self.authcode,
                                                "suppressErrors": True}),
                               headers={"Content-type": "application/json; charset=UTF-8",
-                                       "Origin": "https://beta.elisaviihde.fi"})
+                                       "Origin": self.baseurl})
     
     # Login with username and password
     if self.verbose: print "Logging in with username and password..."
-    user = self.session.post(self.baseUrl + "/api/user",
+    user = self.session.post(self.baseurl + "/api/user",
                              data={"username": username,
                                    "password": password},
                              headers={"Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
                                       "X-Requested-With": "XMLHttpRequest"})
     try:
-      self.userInfo = user.json()
+      self.userinfo = user.json()
     except ValueError as err:
       raise Exception("Could not fetch user information", err)
+  
+  def islogged(self):
+    return True if self.userinfo else False
+    
+  def checklogged(self):
+    if not self.islogged():
+      raise Exception("Not logged in")
   
   def close(self):
     self.session.close()
   
   def gettoken(self):
-    return self.authCode
+    return self.authcode
   
   def getuser(self):
-    return self.userInfo
+    return self.userinfo
   
   def getfolders(self):
     # Get recording folders
     if self.verbose: print "Getting folder info..."
-    folders = self.session.get(self.baseUrl + "/tallenteet/api/folders",
+    self.checklogged()
+    folders = self.session.get(self.baseurl + "/tallenteet/api/folders",
                                headers={"X-Requested-With": "XMLHttpRequest"})
     return folders.json()["folders"][0]["folders"]
     
-  def getrecordings(self, folderid=0):
+  def getrecordings(self, folderid=0, page=0, sortby="startTime", sortorder="desc", status="all"):
     # Get recordings from first folder
+    self.checklogged()
     if self.verbose: print "Getting recording info..."
-    recordings = self.session.get(self.baseUrl + "/tallenteet/api/recordings/" + str(folderid) + "?page=0&sortBy=startTime&sortOrder=desc&watchedStatus=all",
+    recordings = self.session.get(self.baseurl + "/tallenteet/api/recordings/" + str(folderid)
+                                    + "?page=" + str(page)
+                                    + "&sortBy=" + str(sortby)
+                                    + "&sortOrder=" + str(sortorder)
+                                    + "&watchedStatus=" + str(status),
                                   headers={"X-Requested-With": "XMLHttpRequest"})
     return recordings.json()
   
-  def getstreamuri(self, programid):
+  def getstreamuri(self, programid=0):
     # Parse recording stream uri from first recording
+    self.checklogged()
     if self.verbose: print "Getting stream uri info..."
-    uridata = self.session.get(self.baseUrl + "/tallenteet/katso/" + str(programid))
+    uridata = self.session.get(self.baseurl + "/tallenteet/katso/" + str(programid))
     
     for line in uridata.text.split("\n"):
       if "new Player" in line:
