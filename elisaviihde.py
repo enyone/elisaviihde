@@ -21,7 +21,9 @@ class elisaviihde:
     
     # Make initial request to get session cookie
     if self.verbose: print "Initing session..."
-    self.session.get(self.baseurl + "/")
+    
+    init = self.session.get(self.baseurl + "/")
+    self.checkrequest(init.status_code)
   
   def login(self, username, password):
     # Get sso auth token
@@ -74,6 +76,8 @@ class elisaviihde:
     logout = self.session.post(self.baseurl + "/api/user/logout",
                                headers={"X-Requested-With": "XMLHttpRequest"})
     self.session.close()
+    self.userinfo = None
+    self.authcode = None
     self.checkrequest(logout.status_code)
   
   def gettoken(self):
