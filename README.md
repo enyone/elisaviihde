@@ -3,6 +3,7 @@ Elisaviihde
 
 Elisa Viihde API usage example with Python
 
+License: GPLv3
 
 Usage:
 ```
