@@ -1,4 +1,4 @@
-import getopt, sys, requests, json
+import getopt, sys, requests, json, re
 
 def main():
   # Parse command line args
@@ -15,6 +15,7 @@ def main():
   username = ""
   password = ""
   baseUrl = "https://beta.elisaviihde.fi"
+  ssoBaseUrl = "https://id.elisa.fi"
   verbose = False
   
   # Read arg data
@@ -50,7 +51,7 @@ def main():
   
   # Login with token
   if verbose: print "Logging in with single-sign-on token..."
-  login = session.post("https://id.elisa.fi/sso/login",
+  login = session.post(ssoBaseUrl + "/sso/login",
                        data=json.dumps({"accountId": username,
                                         "password": password,
                                         "authCode": authCode,
@@ -74,12 +75,35 @@ def main():
   # Get recording folders
   folders = session.get(baseUrl + "/tallenteet/api/folders",
                         headers={"X-Requested-With": "XMLHttpRequest"})
-  folderInfo = folders.json()
+  folderInfo = folders.json()["folders"][0]["folders"]
   
   # Read and print recording folders
   print "\nFound folders:"
-  for folder in folderInfo["folders"][0]["folders"]:
+  for folder in folderInfo:
     print str(folder["id"]) + ": " + folder["name"]
+  
+  # Get recordings from first folder
+  recordings = session.get(baseUrl + "/tallenteet/api/recordings/" + str(folderInfo[0]["id"]) + "?page=0&sortBy=startTime&sortOrder=desc&watchedStatus=all",
+                           headers={"X-Requested-With": "XMLHttpRequest"})
+  recordingInfo = recordings.json()
+  
+  # Read and print recording folders
+  print "\nFound recordings from folder " + str(folderInfo[0]["id"]) + ":"
+  for recording in recordingInfo:
+    print str(recording["programId"]) + ": " + recording["name"] + " (" + recording["startTimeFormatted"] + ")"
+  
+  # Parse recording stream uri from first recording
+  recUri = session.get(baseUrl + "/tallenteet/katso/" + str(recordingInfo[0]["programId"]))
+  uri = recUri.text
+  
+  print "\nFound stream uri from recording '" + str(recordingInfo[0]["programId"]) + "':"
+  for line in uri.split("\n"):
+    if "new Player" in line:
+      uri = re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)[0]
+      print uri
+  
+  # Close session
+  session.close()
 
 if __name__ == "__main__":
   main()
