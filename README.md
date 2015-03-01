@@ -3,7 +3,7 @@ Elisaviihde
 
 Elisa Viihde API usage example with Python
 
-License: GPLv3
+License: GPLv3 http://www.gnu.org/copyleft/gpl.html
 
 Usage:
 ```
