@@ -44,6 +44,7 @@ class elisaviihde:
                                                "suppressErrors": True}),
                               headers={"Content-type": "application/json; charset=UTF-8",
                                        "Origin": self.baseurl})
+    self.checkrequest(login.status_code)
     
     # Login with username and password
     if self.verbose: print "Logging in with username and password..."
@@ -64,8 +65,16 @@ class elisaviihde:
     if not self.islogged():
       raise Exception("Not logged in")
   
+  def checkrequest(self, statuscode):
+    if not statuscode == requests.codes.ok:
+      raise Exception("API request failed")
+  
   def close(self):
+    if self.verbose: print "Logging out and closing session..."
+    logout = self.session.post(self.baseurl + "/api/user/logout",
+                               headers={"X-Requested-With": "XMLHttpRequest"})
     self.session.close()
+    self.checkrequest(logout.status_code)
   
   def gettoken(self):
     return self.authcode
@@ -79,6 +88,7 @@ class elisaviihde:
     self.checklogged()
     folders = self.session.get(self.baseurl + "/tallenteet/api/folders",
                                headers={"X-Requested-With": "XMLHttpRequest"})
+    self.checkrequest(folders.status_code)
     return folders.json()["folders"][0]["folders"]
     
   def getrecordings(self, folderid=0, page=0, sortby="startTime", sortorder="desc", status="all"):
@@ -91,6 +101,7 @@ class elisaviihde:
                                     + "&sortOrder=" + str(sortorder)
                                     + "&watchedStatus=" + str(status),
                                   headers={"X-Requested-With": "XMLHttpRequest"})
+    self.checkrequest(recordings.status_code)
     return recordings.json()
   
   def getstreamuri(self, programid=0):
@@ -98,7 +109,7 @@ class elisaviihde:
     self.checklogged()
     if self.verbose: print "Getting stream uri info..."
     uridata = self.session.get(self.baseurl + "/tallenteet/katso/" + str(programid))
-    
+    self.checkrequest(uridata.status_code)
     for line in uridata.text.split("\n"):
       if "new Player" in line:
         return re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)[0]
