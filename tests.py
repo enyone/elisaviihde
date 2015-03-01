@@ -4,7 +4,7 @@
 
 import elisaviihde
 from nose.tools import *
-from httmock import all_requests, urlmatch, HTTMock
+from httmock import urlmatch, HTTMock
 
 # Mocks
 @urlmatch(netloc=r'(.*\.)?elisaviihde\.fi$')
@@ -62,7 +62,7 @@ def test_elisa_login_fail():
     elisa = elisaviihde.elisaviihde(False)
     elisa.login("foo", "bar")
 
-def test_elisa_folders_ok():
+def test_elisa_folders():
   with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
     elisa = elisaviihde.elisaviihde(False)
     elisa.login("foo", "bar")
