@@ -9,6 +9,8 @@ Requires: http://docs.python-requests.org/
 
 Developed with: Python 2.7.6
 
+[![Build Status](https://travis-ci.org/enyone/elisaviihde.svg?branch=master)](https://travis-ci.org/enyone/elisaviihde)
+
 Simple example
 -----
 ```
