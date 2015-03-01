@@ -1,11 +1,12 @@
 Elisaviihde
-----
+=====
 
 Elisa Viihde API usage example with Python
 
 License: GPLv3 http://www.gnu.org/copyleft/gpl.html
 
-Simple example:
+Simple example
+-----
 ```
 $ python example.py -u username -p password
 ```
@@ -25,7 +26,8 @@ Found stream uri from recording 1812084:
 http://netpvrpa.cdn.elisaviihde.fi/stream.php?id=1812084&...
 ```
 
-VLC playlist example:
+VLC playlist example
+-----
 ```
 $ python example_vlc.py -u username -p password -f myplaylist.xspf
 ```
