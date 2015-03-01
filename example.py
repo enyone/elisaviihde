@@ -59,8 +59,10 @@ def main():
     print str(recording["programId"]) + ": " + recording["name"] + " (" + recording["startTimeFormatted"] + ")"
   
   # Get recording stream uri from first recording
-  streamuri = elisa.getstreamuri(recordings[0]["programId"])
-  print "\nFound stream uri from recording " + str(recordings[0]["programId"]) + ":"
+  programid = recordings[0]["programId"]
+  streamuri = elisa.getstreamuri(programid)
+  
+  print "\nFound stream uri from recording " + str(programid) + ":"
   print streamuri
   
   # Close session
