@@ -28,7 +28,7 @@ def getxmltrack(folder, recording, uri):
                              + " " + recording["serviceName"]),
                 cgi.escape(folder["name"]) if folder and "name" in folder else "",
                 cgi.escape(recording["description"]) if "description" in recording else "",
-                ((recording["endTimeUTC"]/1000) - (recording["startTimeUTC"]/1000)),
+                ((recording["endTimeUTC"]) - (recording["startTimeUTC"])),
                 cgi.escape(recording["thumbnail"]) if "thumbnail" in recording else "",
                 recording["programId"])
 
