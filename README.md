@@ -6,7 +6,7 @@ Elisa Viihde API usage example with Python
 
 Usage:
 ```
-$ python elisaviihde.py -u username -p password
+$ python example.py -u username -p password
 ```
 Output:
 ```
