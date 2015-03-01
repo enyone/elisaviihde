@@ -2,7 +2,7 @@
 # Creates vlc xspf playlist file containing all recordings
 # (first page only, 10 per page) from all folders recursively
 
-import getopt, sys, cgi, elisaviihde
+import getopt, sys, cgi, datetime, elisaviihde
 import xml.etree.ElementTree as et
 
 def getxmlheader():
@@ -24,10 +24,11 @@ def getxmltrack(folder, recording, uri):
             <vlc:option>network-caching=1000</vlc:option></extension></track>
          """ % (cgi.escape(uri),
                 cgi.escape(recording["name"]),
-                cgi.escape(recording["serviceName"] + " " + recording["startTimeFormatted"]),
+                cgi.escape(datetime.datetime.fromtimestamp(recording["startTimeUTC"]/1000).strftime('%Y-%m-%d %H:%M:%S')
+                             + " " + recording["serviceName"]),
                 cgi.escape(folder["name"]) if folder and "name" in folder else "",
                 cgi.escape(recording["description"]) if "description" in recording else "",
-                recording["duration"],
+                ((recording["endTimeUTC"]/1000) - (recording["startTimeUTC"]/1000)),
                 cgi.escape(recording["thumbnail"]) if "thumbnail" in recording else "",
                 recording["programId"])
 
