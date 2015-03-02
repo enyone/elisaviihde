@@ -14,6 +14,7 @@ Developed with: Python 2.7.6
 Simple example
 -----
 ```
+$ cp examples/example.py .
 $ python example.py -u username -p password
 ```
 Output:
@@ -35,6 +36,7 @@ http://netpvrpa.cdn.elisaviihde.fi/stream.php?id=1812084&...
 VLC playlist example
 -----
 ```
+$ cp examples/example_vlc.py .
 $ python example_vlc.py -u username -p password -f myplaylist.xspf
 ```
 
