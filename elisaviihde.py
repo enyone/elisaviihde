@@ -12,6 +12,7 @@ class elisaviihde:
   session = None
   authcode = None
   userinfo = None
+  verifycerts = False
   
   def __init__(self, verbose=False):
     # Init session to store cookies
@@ -22,7 +23,7 @@ class elisaviihde:
     # Make initial request to get session cookie
     if self.verbose: print "Initing session..."
     
-    init = self.session.get(self.baseurl + "/")
+    init = self.session.get(self.baseurl + "/", verify=self.verifycerts)
     self.checkrequest(init.status_code)
   
   def login(self, username, password):
@@ -31,7 +32,8 @@ class elisaviihde:
     token = self.session.post(self.baseurl + "/api/sso/authcode",
                               data={"username": username},
                               headers={"Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-                                       "X-Requested-With": "XMLHttpRequest"})
+                                       "X-Requested-With": "XMLHttpRequest"},
+                              verify=self.verifycerts)
     try:
       self.authcode = token.json()["code"]
     except ValueError as err:
@@ -45,7 +47,8 @@ class elisaviihde:
                                                "authCode": self.authcode,
                                                "suppressErrors": True}),
                               headers={"Content-type": "application/json; charset=UTF-8",
-                                       "Origin": self.baseurl})
+                                       "Origin": self.baseurl},
+                              verify=self.verifycerts)
     self.checkrequest(login.status_code)
     
     # Login with username and password
@@ -54,7 +57,8 @@ class elisaviihde:
                              data={"username": username,
                                    "password": password},
                              headers={"Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
-                                      "X-Requested-With": "XMLHttpRequest"})
+                                      "X-Requested-With": "XMLHttpRequest"},
+                             verify=self.verifycerts)
     try:
       self.userinfo = user.json()
     except ValueError as err:
@@ -74,7 +78,8 @@ class elisaviihde:
   def close(self):
     if self.verbose: print "Logging out and closing session..."
     logout = self.session.post(self.baseurl + "/api/user/logout",
-                               headers={"X-Requested-With": "XMLHttpRequest"})
+                               headers={"X-Requested-With": "XMLHttpRequest"},
+                               verify=self.verifycerts)
     self.session.close()
     self.userinfo = None
     self.authcode = None
@@ -91,7 +96,8 @@ class elisaviihde:
     if self.verbose: print "Getting folder info..."
     self.checklogged()
     folders = self.session.get(self.baseurl + "/tallenteet/api/folders",
-                               headers={"X-Requested-With": "XMLHttpRequest"})
+                               headers={"X-Requested-With": "XMLHttpRequest"},
+                               verify=self.verifycerts)
     self.checkrequest(folders.status_code)
     return folders.json()["folders"][0]["folders"]
     
@@ -104,7 +110,8 @@ class elisaviihde:
                                     + "&sortBy=" + str(sortby)
                                     + "&sortOrder=" + str(sortorder)
                                     + "&watchedStatus=" + str(status),
-                                  headers={"X-Requested-With": "XMLHttpRequest"})
+                                  headers={"X-Requested-With": "XMLHttpRequest"},
+                                  verify=self.verifycerts)
     self.checkrequest(recordings.status_code)
     return recordings.json()
   
@@ -112,7 +119,7 @@ class elisaviihde:
     # Parse recording stream uri from first recording
     self.checklogged()
     if self.verbose: print "Getting stream uri info..."
-    uridata = self.session.get(self.baseurl + "/tallenteet/katso/" + str(programid))
+    uridata = self.session.get(self.baseurl + "/tallenteet/katso/" + str(programid), verify=self.verifycerts)
     self.checkrequest(uridata.status_code)
     for line in uridata.text.split("\n"):
       if "new Player" in line:
