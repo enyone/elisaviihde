@@ -34,6 +34,7 @@ class elisaviihde:
                               headers={"Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
                                        "X-Requested-With": "XMLHttpRequest"},
                               verify=self.verifycerts)
+    self.checkrequest(token.status_code)
     try:
       self.authcode = token.json()["code"]
     except ValueError as err:
@@ -59,13 +60,21 @@ class elisaviihde:
                              headers={"Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
                                       "X-Requested-With": "XMLHttpRequest"},
                              verify=self.verifycerts)
+    self.checkrequest(user.status_code)
     try:
       self.userinfo = user.json()
     except ValueError as err:
       raise Exception("Could not fetch user information", err)
   
   def islogged(self):
-    return True if self.userinfo else False
+    try:
+      logincheck = self.session.get(self.baseurl + "/tallenteet/api/folders",
+                                    headers={"X-Requested-With": "XMLHttpRequest"},
+                                    verify=self.verifycerts)
+      self.checkrequest(logincheck.status_code)
+      return True
+    except Exception as err:
+      return False
     
   def checklogged(self):
     if not self.islogged():
@@ -91,16 +100,24 @@ class elisaviihde:
   def getuser(self):
     return self.userinfo
   
-  def getfolders(self):
+  def getsession(self):
+    return requests.utils.dict_from_cookiejar(self.session.cookies)
+    
+  def setsession(self, cookies):  
+    self.session.cookies=requests.utils.cookiejar_from_dict(cookies)
+  
+  def getfolders(self, folderid=0):
     # Get recording folders
     if self.verbose: print "Getting folder info..."
     self.checklogged()
+    if folderid != 0:
+      return []
     folders = self.session.get(self.baseurl + "/tallenteet/api/folders",
                                headers={"X-Requested-With": "XMLHttpRequest"},
                                verify=self.verifycerts)
     self.checkrequest(folders.status_code)
-    return folders.json()["folders"][0]["folders"]
-    
+    return folders.json()["folders"][folderid]["folders"]
+  
   def getrecordings(self, folderid=0, page=0, sortby="startTime", sortorder="desc", status="all"):
     # Get recordings from first folder
     self.checklogged()

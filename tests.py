@@ -54,7 +54,8 @@ def test_elisa_login_ok():
   with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
     elisa = elisaviihde.elisaviihde(False)
     elisa.login("foo", "bar")
-  assert elisa.islogged() == True and elisa.gettoken() == "dummy-token"
+    assert elisa.islogged() == True
+  assert elisa.gettoken() == "dummy-token"
 
 @raises(Exception)
 def test_elisa_login_fail():
