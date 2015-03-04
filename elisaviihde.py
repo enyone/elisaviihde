@@ -1,6 +1,7 @@
 # Elisa Viihde API Python implementation
 # License: GPLv3
 # Author: Juho Tykkala
+# Version: 1.1b
 
 import requests, json, re, time, datetime
 
