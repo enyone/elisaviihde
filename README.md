@@ -11,6 +11,11 @@ Developed with: Python 2.7.6
 
 [![Build Status](https://travis-ci.org/enyone/elisaviihde.svg?branch=master)](https://travis-ci.org/enyone/elisaviihde)
 
+**Release 1.0**
+
+[Download .zip](https://github.com/enyone/elisaviihde/archive/1.0.zip)
+or [Download .tar.gz](https://github.com/enyone/elisaviihde/archive/1.0.tar.gz)
+
 Simple example
 -----
 ```
