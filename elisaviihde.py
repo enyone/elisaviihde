@@ -77,6 +77,7 @@ class elisaviihde:
                                     headers={"X-Requested-With": "XMLHttpRequest"},
                                     verify=self.verifycerts)
       self.checkrequest(logincheck.status_code)
+      self.inited = True
       return True
     except Exception as err:
       return False
