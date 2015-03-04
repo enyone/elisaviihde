@@ -13,11 +13,15 @@ Developed with: Python 2.7.6
 
 **Release 1.0**
 
-[Download .zip](https://github.com/enyone/elisaviihde/archive/1.0.zip)
+[Download 1.0 zip](https://github.com/enyone/elisaviihde/archive/1.0.zip)
+```
 sha256sum: a500d80f91b6c4a31551d1968d50d3bda18ccd1d47d7f60749d6ab0a773752e3
+```
 
-[Download .tar.gz](https://github.com/enyone/elisaviihde/archive/1.0.tar.gz)
+[Download 1.0 tar.gz](https://github.com/enyone/elisaviihde/archive/1.0.tar.gz)
+```
 sha256sum: d201dcb758698bd4dede91877d8cc9f4b96694e58065ef7f28eab54e4c4d15e2
+```
 
 Simple example
 -----
