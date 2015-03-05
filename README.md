@@ -23,6 +23,10 @@ sha256sum: a500d80f91b6c4a31551d1968d50d3bda18ccd1d47d7f60749d6ab0a773752e3
 sha256sum: d201dcb758698bd4dede91877d8cc9f4b96694e58065ef7f28eab54e4c4d15e2
 ```
 
+API documentation
+-----
+https://github.com/enyone/elisaviihde/wiki
+
 Simple example
 -----
 ```
