@@ -3,6 +3,8 @@ Elisaviihde
 
 **Elisa Viihde Python library with usage examples**
 
+This library is not maintained by Elisa so read it unofficial.
+
 License: GPLv3 http://www.gnu.org/copyleft/gpl.html
 
 Requires: http://docs.python-requests.org/
