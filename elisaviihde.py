@@ -3,7 +3,7 @@
 # Author: Juho Tykkala
 # Version: 1.1b
 
-import requests, json, re, time, datetime
+import requests, json, re, time, datetime, math
 
 class elisaviihde:
   # Init args
@@ -114,8 +114,8 @@ class elisaviihde:
     self.session.cookies=requests.utils.cookiejar_from_dict(cookies)
   
   def getfolders(self, folderid=0):
-    # Get recording folders
-    if self.verbose: print "Getting folder info..."
+    # Get folders
+    if self.verbose: print "Getting folders..."
     self.checklogged()
     # TODO: Implement recursive folder walk
     if folderid != 0:
@@ -126,19 +126,37 @@ class elisaviihde:
     self.checkrequest(folders.status_code)
     return folders.json()["folders"][0]["folders"]
   
-  def getrecordings(self, folderid=0, page=0, sortby="startTime", sortorder="desc", status="all"):
-    # Get recordings from first folder
+  def getfolderstatus(self, folderid=0):
+    # Get folder info
+    if self.verbose: print "Getting folder info..."
     self.checklogged()
-    if self.verbose: print "Getting recording info..."
-    recordings = self.session.get(self.baseurl + "/tallenteet/api/recordings/" + str(folderid)
-                                    + "?page=" + str(page)
-                                    + "&sortBy=" + str(sortby)
-                                    + "&sortOrder=" + str(sortorder)
-                                    + "&watchedStatus=" + str(status),
-                                  headers={"X-Requested-With": "XMLHttpRequest"},
-                                  verify=self.verifycerts)
-    self.checkrequest(recordings.status_code)
-    return recordings.json()
+    folder = self.session.get(self.baseurl + "/tallenteet/api/folder/" + str(folderid),
+                               headers={"X-Requested-With": "XMLHttpRequest"},
+                               verify=self.verifycerts)
+    self.checkrequest(folder.status_code)
+    return folder.json()
+  
+  def getrecordings(self, folderid=0, page=None, sortby="startTime", sortorder="desc", status="all"):
+    # Get recordings from folder
+    self.checklogged()
+    if self.verbose: print "Getting recordings..."
+    pages = [0]
+    recordings = []
+    if page == None:
+      folder = self.getfolderstatus(folderid)
+      # Append rest of pages to list (50 recordings per page)
+      pages += range(1, int(math.ceil(folder["recordingsCount"] / 50)))
+    for pageno in pages:
+      recordingspp = self.session.get(self.baseurl + "/tallenteet/api/recordings/" + str(folderid)
+                                        + "?page=" + str(pageno)
+                                        + "&sortBy=" + str(sortby)
+                                        + "&sortOrder=" + str(sortorder)
+                                        + "&watchedStatus=" + str(status),
+                                      headers={"X-Requested-With": "XMLHttpRequest"},
+                                      verify=self.verifycerts)
+      self.checkrequest(recordingspp.status_code)
+      recordings += recordingspp.json()
+    return recordings
   
   def getprogram(self, programid=0):
     # Parse program information
