@@ -34,9 +34,6 @@ Simple example
 ```
 $ cp examples/example.py .
 $ python example.py -u username -p password
-```
-Output:
-```
 Found folders:
 3603265: Ajankohtainen kakkonen
 2540806: Dokumentit
