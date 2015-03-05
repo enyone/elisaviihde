@@ -145,7 +145,8 @@ class elisaviihde:
     if page == None:
       folder = self.getfolderstatus(folderid)
       # Append rest of pages to list (50 recordings per page)
-      pages += range(1, int(math.ceil(folder["recordingsCount"] / 50)))
+      if folder["recordingsCount"] > 50:
+        pages += range(1, int(math.ceil(folder["recordingsCount"] / 50)))
     for pageno in pages:
       recordingspp = self.session.get(self.baseurl + "/tallenteet/api/recordings/" + str(folderid)
                                         + "?page=" + str(pageno)
