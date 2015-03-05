@@ -2,6 +2,7 @@
 # License: GPLv3
 # Author: Juho Tykkala
 # Version: 1.1b
+# https://github.com/enyone/elisaviihde
 
 import requests, json, re, time, datetime
 
