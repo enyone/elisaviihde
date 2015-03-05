@@ -126,7 +126,7 @@ class elisaviihde:
       flat.append(tree)
     if subtree:
       for folder in subtree:
-        flat = flat + self.walk(folder, (tree["id"] if "id" in tree else 0))
+        flat += self.walk(folder, (tree["id"] if "id" in tree else 0))
     return flat
   
   def getfolders(self, folderid=0):
