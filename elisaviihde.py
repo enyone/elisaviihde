@@ -144,7 +144,11 @@ class elisaviihde:
     if page == None:
       folder = self.getfolderstatus(folderid)
       # Append rest of pages to list (50 recordings per page)
-      pages = range(0, int(math.floor(folder["recordingsCount"] / 50)))
+      maxpage = int(math.floor(folder["recordingsCount"] / 50))
+      if maxpage > 0:
+        pages = range(0, maxpage)
+      else:
+        pages = [0]
     else:
       pages = [page]
     for pageno in pages:
