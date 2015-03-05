@@ -113,18 +113,31 @@ class elisaviihde:
   def setsession(self, cookies):  
     self.session.cookies=requests.utils.cookiejar_from_dict(cookies)
   
+  def walk(self, tree, parent=None):
+    # Walk folder tree recursively
+    flat = []
+    subtree = None
+    if "folders" in tree:
+      if len(tree["folders"]) > 0:
+        subtree = tree["folders"]
+      del tree["folders"]
+    if "id" in tree:
+      tree["parentFolder"] = parent if tree["id"] > 0 else None
+      flat.append(tree)
+    if subtree:
+      for folder in subtree:
+        flat = flat + self.walk(folder, (tree["id"] if "id" in tree else 0))
+    return flat
+  
   def getfolders(self, folderid=0):
     # Get recording folders
     if self.verbose: print "Getting folder info..."
     self.checklogged()
-    # TODO: Implement recursive folder walk
-    if folderid != 0:
-      return []
     folders = self.session.get(self.baseurl + "/tallenteet/api/folders",
                                headers={"X-Requested-With": "XMLHttpRequest"},
                                verify=self.verifycerts)
     self.checkrequest(folders.status_code)
-    return folders.json()["folders"][0]["folders"]
+    return [folder for folder in self.walk(folders.json()) if folder["parentFolder"] == folderid]
   
   def getrecordings(self, folderid=0, page=0, sortby="startTime", sortorder="desc", status="all"):
     # Get recordings from first folder
