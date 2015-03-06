@@ -26,13 +26,25 @@ def elisaviihde_api_mock(url, request):
   elif url.path == "/tallenteet/katso/0":
     return {'status_code': 200, 'content': 'new Player http://test.com/test'}
   elif url.path == "/ohjelmaopas/ohjelma/1234":
-    return {'status_code': 200, 'content': '<p itemprop="name">dummy-service-name</p>'}
+    return {'status_code': 200, 'content': '\n<p itemprop="name">dummy-channel-name</p>\n'
+              + '<p itemprop="description">dummy-service-description</p>\n'
+              + '<span itemprop="startDate">01.02.2014 13:14</span>\n'
+              + '<h3 itemprop="name" id="data-programid">dummy-service-name</h3>\n'}
+  elif url.path == "/ohjelmaopas/ohjelma/1239":
+    return {'status_code': 200, 'content': '\n<p itemprop="name">dummy-channel-name</p>\n'
+              + '<p itemprop="description">dummy-service-description</p>\n'
+              + '<span itemprop="startDate">01.02.2014a 13:14</span>\n'
+              + '<h3 itemprop="name" id="data-programid">dummy-service-name</h3>\n'}
   else:
     return {'status_code': 500}
 
 @urlmatch(netloc=r'(.*\.)?elisaviihde\.fi$')
 def elisaviihde_api_mock_asshole(url, request):
   return {'status_code': 500}
+
+@urlmatch(netloc=r'(.*\.)?elisaviihde\.fi$')
+def elisaviihde_api_mock_badjson(url, request):
+  return {'status_code': 200, 'content': '{"rew. ""ssdfg}  s'}
 
 @urlmatch(netloc=r'(.*\.)?elisa\.fi$')
 def elisaviihde_sso_mock(url, request):
@@ -66,6 +78,12 @@ def test_elisa_login_ok():
 @raises(Exception)
 def test_elisa_login_fail():
   with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock_asshole):
+    elisa = elisaviihde.elisaviihde(False)
+    elisa.login("foo", "bar")
+
+@raises(Exception)
+def test_elisa_login_fail2():
+  with HTTMock(elisaviihde_api_mock_badjson, elisaviihde_sso_mock):
     elisa = elisaviihde.elisaviihde(False)
     elisa.login("foo", "bar")
 
@@ -109,7 +127,18 @@ def test_elisa_program():
     elisa = elisaviihde.elisaviihde(False)
     elisa.login("foo", "bar")
     program = elisa.getprogram(1234)
-  assert program["serviceName"] == "dummy-service-name"
+  assert program["serviceName"] == "dummy-channel-name"
+  assert program["name"] == "dummy-service-name"
+  assert program["startTimeUTC"] == 1391253240000
+  assert program["description"] == "dummy-service-description"
+
+def test_elisa_program_fail():
+  with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
+    elisa = elisaviihde.elisaviihde(False)
+    elisa.login("foo", "bar")
+    program = elisa.getprogram(1239)
+  assert program["serviceName"] == "dummy-channel-name"
+  assert program["description"] == "dummy-service-description"
 
 def test_elisa_streamuri():
   with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
