@@ -2,5 +2,5 @@ language: python
 python:
   - "2.7"
 install: "pip install requests httmock coveralls"
-script: nosetests --with-coverage --cover-package=elisaviihde
+script: nosetests --with-coverage --cover-tests --cover-package=elisaviihde.py
 after_success: coveralls
