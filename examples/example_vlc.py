@@ -80,7 +80,7 @@ def main():
   filehandle.write(getxmlheader())
   
   # Read top directory and persist to a file
-  recordings = elisa.getrecordings(0)
+  recordings = elisa.getrecordings(0, 0)
   for recording in recordings:
     streamuri = elisa.getstreamuri(recording["programId"])
     filehandle.write(getxmltrack(None, recording, streamuri).encode('utf8'))
@@ -88,7 +88,7 @@ def main():
   # Walk sub-directories recursively and persist to a file
   folders = elisa.getfolders()
   for folder in folders:
-    recordings = elisa.getrecordings(folder["id"])
+    recordings = elisa.getrecordings(folder["id"], 0)
     for recording in recordings:
       streamuri = elisa.getstreamuri(recording["programId"])
       filehandle.write(getxmltrack(folder, recording, streamuri).encode('utf8'))
