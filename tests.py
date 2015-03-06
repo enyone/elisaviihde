@@ -15,6 +15,8 @@ def elisaviihde_api_mock(url, request):
     return {'status_code': 200, 'content': '{"code":"dummy-token"}'}
   elif url.path == "/api/user":
     return {'status_code': 200, 'content': '{"username":"dummy-user"}'}
+  elif url.path == "/api/user/logout":
+    return {'status_code': 200, 'content': '{}'}
   elif url.path == "/tallenteet/api/folders":
     return {'status_code': 200, 'content': '{"folders":[{"id":0,"folders":[{"id":1,"name":"dummy-folder"}]}]}'}
   elif url.path == "/tallenteet/api/folder/0":
@@ -66,6 +68,27 @@ def test_elisa_login_fail():
   with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock_asshole):
     elisa = elisaviihde.elisaviihde(False)
     elisa.login("foo", "bar")
+
+def test_elisa_logout_ok():
+  with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
+    elisa = elisaviihde.elisaviihde(False)
+    elisa.login("foo", "bar")
+    elisa.close()
+  assert elisa.gettoken() == None
+
+def test_elisa_user():
+  with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
+    elisa = elisaviihde.elisaviihde(False)
+    elisa.login("foo", "bar")
+    user = elisa.getuser()
+  assert user["username"] == "dummy-user"
+
+def test_elisa_sessions():
+  with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
+    elisa = elisaviihde.elisaviihde(False)
+    elisa.login("foo", "bar")
+    elisa.setsession({"foo":"123"})
+    assert elisa.getsession() == {"foo":"123"}
 
 def test_elisa_folders():
   with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
