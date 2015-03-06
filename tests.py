@@ -17,6 +17,8 @@ def elisaviihde_api_mock(url, request):
     return {'status_code': 200, 'content': '{"username":"dummy-user"}'}
   elif url.path == "/tallenteet/api/folders":
     return {'status_code': 200, 'content': '{"folders":[{"id":0,"folders":[{"id":1,"name":"dummy-folder"}]}]}'}
+  elif url.path == "/tallenteet/api/folder/0":
+    return {'status_code': 200, 'content': '{"recordingsCount":1}'}
   elif url.path == "/tallenteet/api/recordings/0":
     return {'status_code': 200, 'content': '[{"name":"dummy-recording"}]'}
   elif url.path == "/tallenteet/katso/0":

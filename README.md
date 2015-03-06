@@ -3,6 +3,8 @@ Elisaviihde
 
 **Elisa Viihde Python library with usage examples**
 
+This library is not maintained by Elisa so read it unofficial.
+
 License: GPLv3 http://www.gnu.org/copyleft/gpl.html
 
 Requires: http://docs.python-requests.org/
@@ -23,14 +25,15 @@ sha256sum: a500d80f91b6c4a31551d1968d50d3bda18ccd1d47d7f60749d6ab0a773752e3
 sha256sum: d201dcb758698bd4dede91877d8cc9f4b96694e58065ef7f28eab54e4c4d15e2
 ```
 
+API documentation
+-----
+https://github.com/enyone/elisaviihde/wiki
+
 Simple example
 -----
 ```
 $ cp examples/example.py .
 $ python example.py -u username -p password
-```
-Output:
-```
 Found folders:
 3603265: Ajankohtainen kakkonen
 2540806: Dokumentit

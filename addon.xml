@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.module.elisaviihde"
+       name="elisaviihde"
+       version="1.1"
+       provider-name="enyone">
+    <extension point="xbmc.python.pluginsource" library="elisaviihde.py">
+    </extension>
+    <extension point="xbmc.addon.metadata">
+        <platform>all</platform>
+	       <language>en</language>
+        <summary lang="en">Elisa Viihde API</summary>
+        <description lang="en">This plugin provides Python implementation of Elisa Viihde API</description>
+	       <license>GNU GENERAL PUBLIC LICENSE version 3, June 2007</license>
+	       <website>https://github.com/enyone/elisaviihde</website>
+	       <source>https://github.com/enyone/elisaviihde.git</source>
+    </extension>
+</addon>
