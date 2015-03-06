@@ -129,7 +129,7 @@ def test_elisa_program():
     program = elisa.getprogram(1234)
   assert program["serviceName"] == "dummy-channel-name"
   assert program["name"] == "dummy-service-name"
-  assert program["startTimeUTC"] == 1391253240000
+  assert program["startTimeUTC"] > 1300000000000
   assert program["description"] == "dummy-service-description"
 
 def test_elisa_program_fail():
