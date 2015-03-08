@@ -42,7 +42,7 @@ Simple example
 -----
 ```
 $ cp examples/example.py .
-$ python example.py -u username -p password
+$ python example.py -u username
 Found folders:
 3603265: Ajankohtainen kakkonen
 2540806: Dokumentit
@@ -61,7 +61,7 @@ VLC playlist example
 -----
 ```
 $ cp examples/example_vlc.py .
-$ python example_vlc.py -u username -p password -f myplaylist.xspf
+$ python example_vlc.py -u username -f myplaylist.xspf
 ```
 
 Creates XSPF playlist file (XML Shareable Playlist Format) containing recording stream links from first level folders. Item count for every folder is limited to 50 newest recordings for faster operation.
