@@ -19,19 +19,19 @@ Developed with: Python 2.7.6
 
 [Download 1.2 zip](https://github.com/enyone/elisaviihde/archive/1.2.zip)
 ```
-sha256sum: 4df1c760f64acd6a701dc3ab5e89149669db909075397c8750761501daea286d
+sha256sum: 20c6a7768f2c16cac19d92215b6b0f51b0fcd259b5814e16a23e0f7d39a1bca3
 ```
 
 [Download 1.2 tar.gz](https://github.com/enyone/elisaviihde/archive/1.2.tar.gz)
 ```
-sha256sum: 026a53c6aa37e213bcb05a7763ec10a4417a93e1cf3489a0782292a8a1a67b1f
+sha256sum: f2333c745d781d86699702f673e6667cc0a836f0dd39bc12735d1d00c3b2a2b2
 ```
 
 **KODI/XBMC Python module addon**
 
 [Download script.module.elisaviihde-1.2.zip](https://github.com/enyone/elisaviihde/releases/download/1.2/script.module.elisaviihde-1.2.zip)
 ```
-sha256sum: b1d28cac09ac2c16391a61c976cabe277ab5b1505acbca41b0600314f35c88d1
+sha256sum: 031a5154ddfa81558166820b9344c66d175d5dc0f307318e1fb4e1c143620859
 ```
 
 API documentation
