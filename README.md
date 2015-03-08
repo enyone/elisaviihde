@@ -1,7 +1,5 @@
-Elisaviihde
+Elisa Viihde Python library
 =====
-
-**Elisa Viihde Python library with usage examples**
 
 This library is not maintained by Elisa so read it unofficial.
 
