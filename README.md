@@ -17,12 +17,12 @@ Developed with: Python 2.7.6
 
 **Latest release package**
 
-[Download 1.1 zip](https://github.com/enyone/elisaviihde/archive/1.1.zip)
+[Download 1.2 zip](https://github.com/enyone/elisaviihde/archive/1.2.zip)
 ```
 sha256sum: 4df1c760f64acd6a701dc3ab5e89149669db909075397c8750761501daea286d
 ```
 
-[Download 1.1 tar.gz](https://github.com/enyone/elisaviihde/archive/1.1.tar.gz)
+[Download 1.2 tar.gz](https://github.com/enyone/elisaviihde/archive/1.2.tar.gz)
 ```
 sha256sum: 026a53c6aa37e213bcb05a7763ec10a4417a93e1cf3489a0782292a8a1a67b1f
 ```
