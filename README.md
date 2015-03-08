@@ -31,7 +31,7 @@ sha256sum: f2333c745d781d86699702f673e6667cc0a836f0dd39bc12735d1d00c3b2a2b2
 
 [Download script.module.elisaviihde-1.2.zip](https://github.com/enyone/elisaviihde/releases/download/1.2/script.module.elisaviihde-1.2.zip)
 ```
-sha256sum: 1a1935a9bde2c69084eb14f293b650c73e0b9c65804ba8beca1c7946d9fa7e07
+sha256sum: 2fef259f89575c078c5ee98516dd0a2f6aa375b479c34fdefa5b4fd55fe24265
 ```
 
 API documentation
