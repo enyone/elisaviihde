@@ -15,7 +15,7 @@ Developed with: Python 2.7.6
 [![Coverage Status](https://coveralls.io/repos/enyone/elisaviihde/badge.svg?branch=master)](https://coveralls.io/r/enyone/elisaviihde?branch=master)
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/enyone/elisaviihde?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
-**Release 1.1**
+**Latest release package**
 
 [Download 1.1 zip](https://github.com/enyone/elisaviihde/archive/1.1.zip)
 ```
@@ -25,6 +25,13 @@ sha256sum: 4df1c760f64acd6a701dc3ab5e89149669db909075397c8750761501daea286d
 [Download 1.1 tar.gz](https://github.com/enyone/elisaviihde/archive/1.1.tar.gz)
 ```
 sha256sum: 026a53c6aa37e213bcb05a7763ec10a4417a93e1cf3489a0782292a8a1a67b1f
+```
+
+**KODI/XBMC Python module addon**
+
+[Download script.module.elisaviihde-1.2.zip](https://github.com/enyone/elisaviihde/releases/download/1.2/script.module.elisaviihde-1.2.zip)
+```
+sha256sum: b1d28cac09ac2c16391a61c976cabe277ab5b1505acbca41b0600314f35c88d1
 ```
 
 API documentation
