@@ -19,12 +19,12 @@ Developed with: Python 2.7.6
 
 [Download 1.2 zip](https://github.com/enyone/elisaviihde/archive/1.2.zip)
 ```
-sha256sum: 20c6a7768f2c16cac19d92215b6b0f51b0fcd259b5814e16a23e0f7d39a1bca3
+sha256sum: 486a3f95ff019037fe0e3007bd10a1b665de39d66d018dbfeecfbb4077f7ffbf
 ```
 
 [Download 1.2 tar.gz](https://github.com/enyone/elisaviihde/archive/1.2.tar.gz)
 ```
-sha256sum: f2333c745d781d86699702f673e6667cc0a836f0dd39bc12735d1d00c3b2a2b2
+sha256sum: d7ec7df1829bf811bc02ea3f7665f181b65ff686ae3b4508f456d5ffae863efe
 ```
 
 **KODI/XBMC Python module addon**
