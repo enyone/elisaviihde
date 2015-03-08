@@ -15,3 +15,4 @@ Deep folder structures and full list of recordings per folder
 First release using beta.elisaviihde.fi
  Juho Tykkälä enyone released this 5 days ago · 43 commits to master since this release
 - Supported functions: login, logout, folders, recordings, program, streamuri
+
