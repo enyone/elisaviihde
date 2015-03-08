@@ -1,21 +1,20 @@
 # Elisa Viihde API Python implementation usage demo
 
-import getopt, sys, elisaviihde
+import getopt, sys, getpass, elisaviihde
 
 def main():
   # Parse command line args
   if len(sys.argv[1:]) < 2:
-    print "ERROR: Usage:", sys.argv[0], "[-u username] [-p password]" 
+    print "ERROR: Usage:", sys.argv[0], "[-u username]" 
     sys.exit(2)
   try:
-    opts, args = getopt.getopt(sys.argv[1:], "u:p:v", ["username", "password"])
+    opts, args = getopt.getopt(sys.argv[1:], "u:v", ["username"])
   except getopt.GetoptError as err:
     print "ERROR:", str(err)
     sys.exit(2) 
   
   # Init args
   username = ""
-  password = ""
   verbose = False
   
   # Read arg data
@@ -24,10 +23,11 @@ def main():
       verbose = True
     elif o in ("-u", "--username"):
       username = a
-    elif o in ("-p", "--password"):
-      password = a
     else:
       assert False, "unhandled option"
+  
+  # Ask password securely on command line
+  password = getpass.getpass('Password: ')
   
   # Init elisa session
   try:

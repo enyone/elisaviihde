@@ -2,7 +2,7 @@
 # Creates vlc xspf playlist file containing all recordings
 # (first page only, 10 per page) from all folders recursively
 
-import getopt, sys, cgi, datetime, elisaviihde
+import getopt, sys, cgi, datetime, getpass, elisaviihde
 import xml.etree.ElementTree as et
 
 def getxmlheader():
@@ -35,17 +35,16 @@ def getxmltrack(folder, recording, uri):
 def main():
   # Parse command line args
   if len(sys.argv[1:]) < 2:
-    print "ERROR: Usage:", sys.argv[0], "[-u username] [-p password] [-f outputfile]" 
+    print "ERROR: Usage:", sys.argv[0], "[-u username] [-f outputfile]" 
     sys.exit(2)
   try:
-    opts, args = getopt.getopt(sys.argv[1:], "u:p:f:v", ["username", "password", "outputfile"])
+    opts, args = getopt.getopt(sys.argv[1:], "u:f:v", ["username", "outputfile"])
   except getopt.GetoptError as err:
     print "ERROR:", str(err)
     sys.exit(2)
   
   # Init args
   username = ""
-  password = ""
   outputfile = "playlist.xspf"
   verbose = False
   
@@ -55,12 +54,13 @@ def main():
       verbose = True
     elif o in ("-u", "--username"):
       username = a
-    elif o in ("-p", "--password"):
-      password = a
     elif o in ("-f", "--outputfile"):
       outputfile = a
     else:
       assert False, "unhandled option"
+  
+  # Ask password securely on command line
+  password = getpass.getpass('Password: ')
   
   # Init elisa session
   try:
