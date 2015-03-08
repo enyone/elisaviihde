@@ -5,6 +5,8 @@ Elisaviihde
 
 This library is not maintained by Elisa so read it unofficial.
 
+_Elisa Viihde is a registered trademark of [©Elisa Oyj](http://corporate.elisa.fi)_
+
 License: GPLv3 http://www.gnu.org/copyleft/gpl.html
 
 Requires: http://docs.python-requests.org/
