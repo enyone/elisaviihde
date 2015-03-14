@@ -29,9 +29,9 @@ sha256sum: d7ec7df1829bf811bc02ea3f7665f181b65ff686ae3b4508f456d5ffae863efe
 
 **KODI/XBMC Python module addon**
 
-[Download script.module.elisaviihde-1.2.zip](https://github.com/enyone/elisaviihde/releases/download/1.2/script.module.elisaviihde-1.2.zip)
+[Download script.module.elisaviihde-1.2.0.zip](https://github.com/enyone/elisaviihde/releases/download/1.2/script.module.elisaviihde-1.2.0.zip)
 ```
-sha256sum: b9a0856fbf1e7c9523daa95af507561ec6b870158211089bae3c1d18265fe582
+sha256sum: 9bd7e63a26b6941570946a35489e5c0d3869d8f4450158403fe83b4a0c188fdd
 ```
 
 API documentation
