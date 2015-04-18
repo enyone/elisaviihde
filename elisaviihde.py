@@ -9,7 +9,7 @@ import requests, json, re, time, datetime, math
 class elisaviihde:
   # Init args
   verbose = False
-  baseurl = "https://beta.elisaviihde.fi"
+  baseurl = "https://elisaviihde.fi"
   ssobaseurl = "https://id.elisa.fi"
   session = None
   authcode = None
