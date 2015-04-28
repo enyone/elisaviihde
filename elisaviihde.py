@@ -1,7 +1,7 @@
 # Elisa Viihde API Python implementation
 # License: GPLv3
 # Author: enyone
-# Version: 1.3
+# Version: 1.4
 # https://github.com/enyone/elisaviihde
 
 import requests, json, re, time, datetime, math
