@@ -89,7 +89,7 @@ class elisaviihde:
   
   def checkrequest(self, statuscode):
     if not statuscode == requests.codes.ok:
-      raise Exception("API request failed")
+      raise Exception("API request failed with error code: " + str(statuscode))
   
   def close(self):
     if self.verbose: print "Logging out and closing session..."
@@ -218,3 +218,6 @@ class elisaviihde:
       if "new Player" in line:
         return re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)[0]
 
+  def markwatched(self, programid=0):
+    # Mark recording as watched
+    pass
