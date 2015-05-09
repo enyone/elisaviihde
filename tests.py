@@ -94,12 +94,19 @@ def test_elisa_logout_ok():
     elisa.close()
   assert elisa.gettoken() == None
 
-def test_elisa_user():
+def test_elisa_user_ok():
   with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
     elisa = elisaviihde.elisaviihde(False)
     elisa.login("foo", "bar")
     user = elisa.getuser()
   assert user["username"] == "dummy-user"
+
+@raises(Exception)
+def test_elisa_user_fail():
+  with HTTMock(elisaviihde_api_mock_badjson, elisaviihde_sso_mock):
+    elisa = elisaviihde.elisaviihde(False)
+    elisa.login("foo", "bar")
+    user = elisa.getuser()
 
 def test_elisa_sessions():
   with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
