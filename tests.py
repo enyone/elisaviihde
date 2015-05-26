@@ -154,3 +154,15 @@ def test_elisa_streamuri():
     streamuri = elisa.getstreamuri(0)
   assert streamuri == "http://test.com/test"
 
+def test_elisa_watched_ok():
+  with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
+    elisa = elisaviihde.elisaviihde(False)
+    elisa.login("foo", "bar")
+    elisa.markwatched()
+
+@raises(Exception)
+def test_elisa_watched_fail():
+  with HTTMock(elisaviihde_api_mock_badjson, elisaviihde_sso_mock):
+    elisa = elisaviihde.elisaviihde(False)
+    elisa.login("foo", "bar")
+    elisa.markwatched()
