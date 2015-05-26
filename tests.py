@@ -23,6 +23,8 @@ def elisaviihde_api_mock(url, request):
     return {'status_code': 200, 'content': '{"recordingsCount":1}'}
   elif url.path == "/tallenteet/api/recordings/0":
     return {'status_code': 200, 'content': '[{"name":"dummy-recording"}]'}
+  elif url.path == "/tallenteet/api/watched/0":
+    return {'status_code': 200, 'content': '{}'}
   elif url.path == "/tallenteet/katso/0":
     return {'status_code': 200, 'content': 'new Player http://test.com/test'}
   elif url.path == "/ohjelmaopas/ohjelma/1234":
@@ -158,11 +160,11 @@ def test_elisa_watched_ok():
   with HTTMock(elisaviihde_api_mock, elisaviihde_sso_mock):
     elisa = elisaviihde.elisaviihde(False)
     elisa.login("foo", "bar")
-    elisa.markwatched()
+    elisa.markwatched(0)
 
 @raises(Exception)
 def test_elisa_watched_fail():
   with HTTMock(elisaviihde_api_mock_badjson, elisaviihde_sso_mock):
     elisa = elisaviihde.elisaviihde(False)
     elisa.login("foo", "bar")
-    elisa.markwatched()
+    elisa.markwatched(0)
