@@ -215,7 +215,7 @@ class elisaviihde:
     uridata = self.session.get(self.baseurl + "/tallenteet/katso/" + str(programid), verify=self.verifycerts)
     self.checkrequest(uridata.status_code)
     for line in uridata.text.split("\n"):
-      if "new Player" in line:
+      if "recording-player" in line:
         return re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)[0]
 
   def markwatched(self, programid=0):
