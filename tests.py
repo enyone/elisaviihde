@@ -24,7 +24,7 @@ def elisaviihde_api_mock(url, request):
   elif url.path == "/tallenteet/api/recordings/0":
     return {'status_code': 200, 'content': '[{"name":"dummy-recording"}]'}
   elif url.path == "/tallenteet/katso/0":
-    return {'status_code': 200, 'content': 'new Player http://test.com/test'}
+    return {'status_code': 200, 'content': 'data-section="recording-player" data-url="http://test.com/test"'}
   elif url.path == "/ohjelmaopas/ohjelma/1234":
     return {'status_code': 200, 'content': '\n<p itemprop="name">dummy-channel-name</p>\n'
               + '<p itemprop="description">dummy-service-description</p>\n'
