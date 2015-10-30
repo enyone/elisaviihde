@@ -65,7 +65,7 @@ $ cp examples/example_vlc.py .
 $ python example_vlc.py -u username -f myplaylist.xspf
 ```
 
-Creates XSPF playlist file (XML Shareable Playlist Format) containing recording stream links from first level folders. Item count for every folder is limited to 50 newest recordings for faster operation.
+Creates XSPF playlist file (XML Shareable Playlist Format) containing recording stream links from first level folders.
 
 http://en.wikipedia.org/wiki/XML_Shareable_Playlist_Format
 

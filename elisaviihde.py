@@ -1,7 +1,7 @@
 # Elisa Viihde API Python implementation
 # License: GPLv3
 # Author: enyone
-# Version: 1.3
+# Version: 1.4
 # https://github.com/enyone/elisaviihde
 
 import requests, json, re, time, datetime, math
@@ -220,4 +220,10 @@ class elisaviihde:
 
   def markwatched(self, programid=0):
     # Mark recording as watched
-    pass
+    if self.verbose: print "Marking as watched..."
+    self.checklogged()
+    watched = self.session.get(self.baseurl + "/tallenteet/api/watched/" + str(programid),
+                               headers={"X-Requested-With": "XMLHttpRequest"},
+                               verify=self.verifycerts)
+    self.checkrequest(watched.status_code)
+
