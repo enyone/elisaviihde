@@ -1,5 +1,10 @@
 1.4
 -----
+Video stream identifying fix
+- Keyword for identifying line with video stream changed
+
+Mark recording as watched
+- Added ability to mark recording as watched
 
 1.3
 -----
