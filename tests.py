@@ -1,6 +1,7 @@
 # Elisa Viihde API Python implementation tests
 # License: GPLv3
-# Author: Juho Tykkala
+# For-version: 1.5
+# Author: enyone
 
 import elisaviihde
 from nose.tools import *
