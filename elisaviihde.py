@@ -4,6 +4,7 @@
 # Version: 1.5
 # https://github.com/enyone/elisaviihde
 
+from __future__ import print_function
 import requests, json, re, time, datetime, math
 
 class elisaviihde:
@@ -24,14 +25,14 @@ class elisaviihde:
     self.session.headers.update({"Referer": self.baseurl + "/"})
     
     # Make initial request to get session cookie
-    if self.verbose: print "Initing session..."
+    if self.verbose: print("Initing session...")
     
     init = self.session.get(self.baseurl + "/", verify=self.verifycerts)
     self.checkrequest(init.status_code)
   
   def login(self, username, password):
     # Get sso auth token
-    if self.verbose: print "Getting single-sign-on token..."
+    if self.verbose: print("Getting single-sign-on token...")
     token = self.session.post(self.baseurl + "/api/sso/authcode",
                               data={"username": username},
                               headers={"Content-type": "application/x-www-form-urlencoded; charset=UTF-8",
@@ -44,7 +45,7 @@ class elisaviihde:
       raise Exception("Could not fetch sso token", err)
     
     # Login with token
-    if self.verbose: print "Logging in with single-sign-on token..."
+    if self.verbose: print("Logging in with single-sign-on token...")
     login = self.session.post(self.ssobaseurl + "/sso/login",
                               data=json.dumps({"accountId": username,
                                                "password": password,
@@ -56,7 +57,7 @@ class elisaviihde:
     self.checkrequest(login.status_code)
     
     # Login with username and password
-    if self.verbose: print "Logging in with username and password..."
+    if self.verbose: print("Logging in with username and password...")
     user = self.session.post(self.baseurl + "/api/user",
                              data={"username": username,
                                    "password": password},
@@ -92,7 +93,7 @@ class elisaviihde:
       raise Exception("API request failed with error code: " + str(statuscode))
   
   def close(self):
-    if self.verbose: print "Logging out and closing session..."
+    if self.verbose: print("Logging out and closing session...")
     logout = self.session.post(self.baseurl + "/api/user/logout",
                                headers={"X-Requested-With": "XMLHttpRequest"},
                                verify=self.verifycerts)
@@ -132,7 +133,7 @@ class elisaviihde:
   
   def getfolders(self, folderid=0):
     # Get folders
-    if self.verbose: print "Getting folders..."
+    if self.verbose: print("Getting folders...")
     self.checklogged()
     folders = self.session.get(self.baseurl + "/tallenteet/api/folders",
                                headers={"X-Requested-With": "XMLHttpRequest"},
@@ -142,7 +143,7 @@ class elisaviihde:
   
   def getfolderstatus(self, folderid=0):
     # Get folder info
-    if self.verbose: print "Getting folder info..."
+    if self.verbose: print("Getting folder info...")
     self.checklogged()
     folder = self.session.get(self.baseurl + "/tallenteet/api/folder/" + str(folderid),
                                headers={"X-Requested-With": "XMLHttpRequest"},
@@ -153,14 +154,14 @@ class elisaviihde:
   def getrecordings(self, folderid=0, page=None, sortby="startTime", sortorder="desc", status="all"):
     # Get recordings from folder
     self.checklogged()
-    if self.verbose: print "Getting recordings..."
+    if self.verbose: print("Getting recordings...")
     recordings = []
     if page == None:
       folder = self.getfolderstatus(folderid)
       # Append rest of pages to list (50 recordings per page)
       maxpage = int(math.floor(folder["recordingsCount"] / 50))
       if maxpage > 0:
-        pages = range(0, maxpage)
+        pages = list(range(0, maxpage))
       else:
         pages = [0]
     else:
@@ -180,7 +181,7 @@ class elisaviihde:
   def getprogram(self, programid=0):
     # Parse program information
     self.checklogged()
-    if self.verbose: print "Getting program info..."
+    if self.verbose: print("Getting program info...")
     uridata = self.session.get(self.baseurl + "/ohjelmaopas/ohjelma/" + str(programid), verify=self.verifycerts)
     self.checkrequest(uridata.status_code)
     programname = ""
@@ -202,16 +203,16 @@ class elisaviihde:
                                                         "%d.%m.%Y %H:%M"))).strftime("%s"))
           programtime = programtime * 1000
     except Exception as exp:
-      print "ERROR:", str(exp)
+      print("ERROR:", str(exp))
     except Error as exp:
-      print "ERROR:", str(exp)
+      print("ERROR:", str(exp))
     
     return {"name": programname, "description": programdesc, "serviceName": programsrvc, "startTimeUTC": programtime}
   
   def getstreamuri(self, programid=0):
     # Parse recording stream uri for program
     self.checklogged()
-    if self.verbose: print "Getting stream uri info..."
+    if self.verbose: print("Getting stream uri info...")
     uridata = self.session.get(self.baseurl + "/tallenteet/katso/" + str(programid), verify=self.verifycerts)
     self.checkrequest(uridata.status_code)
     for line in uridata.text.split("\n"):
@@ -220,7 +221,7 @@ class elisaviihde:
 
   def markwatched(self, programid=0):
     # Mark recording as watched
-    if self.verbose: print "Marking as watched..."
+    if self.verbose: print("Marking as watched...")
     self.checklogged()
     watched = self.session.get(self.baseurl + "/tallenteet/api/watched/" + str(programid),
                                headers={"X-Requested-With": "XMLHttpRequest"},
