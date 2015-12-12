@@ -18,26 +18,25 @@ _Elisa Viihde is a registered trademark of [©Elisa Oyj](http://corporate.elisa.
 
 **Latest release package**
 
-[Download 1.4 zip](https://github.com/enyone/elisaviihde/archive/1.4.zip)
+[Download 1.5 zip](https://github.com/enyone/elisaviihde/archive/1.5.zip)
 ```
-sha256sum: 1257c0190b735ecac61aea9b1cd630d2c6611a3e262bbc7df7a0281732f76e42
+sha256sum: TBD
 ```
 
-[Download 1.4 tar.gz](https://github.com/enyone/elisaviihde/archive/1.4.tar.gz)
+[Download 1.5 tar.gz](https://github.com/enyone/elisaviihde/archive/1.5.tar.gz)
 ```
-sha256sum: b33f6b0b215f7dbfb02bc91dad6c730d3c255ebb966c839225d4071c0c3c4457
+sha256sum: TBD
 ```
 
 **KODI/XBMC Python module addon**
 
-[Download script.module.elisaviihde-1.4.0.zip](https://github.com/enyone/elisaviihde/releases/download/1.4/script.module.elisaviihde-1.4.0.zip)
+[Download script.module.elisaviihde-1.5.0.zip](https://github.com/enyone/elisaviihde/releases/download/1.5/script.module.elisaviihde-1.5.0.zip)
 ```
-sha256sum: 85ba43945be12a8da76dd4b0f6be49700c70ee34b5e654f825d87efec4fdbd73
+sha256sum: TBD
 ```
 
 API documentation
 -----
-
 https://github.com/enyone/elisaviihde/wiki
 
 Simple example
