@@ -10,7 +10,7 @@ _Elisa Viihde is a registered trademark of [©Elisa Oyj](http://corporate.elisa.
 **Requires:** Requests http://docs.python-requests.org/
 * **Very important fact:** By default, urllib3 (which Requests uses) does not verify HTTPS requests. https://urllib3.readthedocs.org/en/latest/security.html
 
-**Developed for:** Python 2.7.6 and 3.5.1
+**Developed for:** Python 2.7.6 (experimental with 3.5.1)
 
 [![Build Status](https://travis-ci.org/enyone/elisaviihde.svg?branch=master)](https://travis-ci.org/enyone/elisaviihde)
 [![Coverage Status](https://coveralls.io/repos/enyone/elisaviihde/badge.svg?branch=master)](https://coveralls.io/r/enyone/elisaviihde?branch=master)
