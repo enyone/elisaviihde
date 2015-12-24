@@ -8,7 +8,7 @@ from __future__ import print_function
 import requests, json, re, time, datetime, math
 
 class elisaviihde:
-  # Init args
+  # Init vars
   verbose = False
   baseurl = "https://elisaviihde.fi"
   ssobaseurl = "https://id.elisa.fi"
