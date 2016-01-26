@@ -11,33 +11,33 @@ from httmock import urlmatch, HTTMock
 @urlmatch(netloc=r'(.*\.)?elisaviihde\.fi$')
 def elisaviihde_api_mock(url, request):
   if url.path == "/":
-    return {'status_code': 200, 'content': '<html></html>'}
+    return {'status_code': 200, 'content': b'<html></html>'}
   elif url.path == "/api/sso/authcode":
-    return {'status_code': 200, 'content': '{"code":"dummy-token"}'}
+    return {'status_code': 200, 'content': b'{"code":"dummy-token"}'}
   elif url.path == "/api/user":
-    return {'status_code': 200, 'content': '{"username":"dummy-user"}'}
+    return {'status_code': 200, 'content': b'{"username":"dummy-user"}'}
   elif url.path == "/api/user/logout":
-    return {'status_code': 200, 'content': '{}'}
+    return {'status_code': 200, 'content': b'{}'}
   elif url.path == "/tallenteet/api/folders":
-    return {'status_code': 200, 'content': '{"folders":[{"id":0,"folders":[{"id":1,"name":"dummy-folder"}]}]}'}
+    return {'status_code': 200, 'content': b'{"folders":[{"id":0,"folders":[{"id":1,"name":"dummy-folder"}]}]}'}
   elif url.path == "/tallenteet/api/folder/0":
-    return {'status_code': 200, 'content': '{"recordingsCount":1}'}
+    return {'status_code': 200, 'content': b'{"recordingsCount":1}'}
   elif url.path == "/tallenteet/api/recordings/0":
-    return {'status_code': 200, 'content': '[{"name":"dummy-recording"}]'}
+    return {'status_code': 200, 'content': b'[{"name":"dummy-recording"}]'}
   elif url.path == "/tallenteet/api/watched/0":
-    return {'status_code': 200, 'content': '{}'}
+    return {'status_code': 200, 'content': b'{}'}
   elif url.path == "/tallenteet/katso/0":
-    return {'status_code': 200, 'content': 'data-section="recording-player" data-url="http://test.com/test"'}
+    return {'status_code': 200, 'content': b'data-section="recording-player" data-url="http://test.com/test"'}
   elif url.path == "/ohjelmaopas/ohjelma/1234":
-    return {'status_code': 200, 'content': '\n<p itemprop="name">dummy-channel-name</p>\n'
-              + '<p itemprop="description">dummy-service-description</p>\n'
-              + '<span itemprop="startDate">01.02.2014 13:14</span>\n'
-              + '<h3 itemprop="name" id="data-programid">dummy-service-name</h3>\n'}
+    return {'status_code': 200, 'content': b'\n<p itemprop="name">dummy-channel-name</p>\n'
+              + b'<p itemprop="description">dummy-service-description</p>\n'
+              + b'<span itemprop="startDate">01.02.2014 13:14</span>\n'
+              + b'<h3 itemprop="name" id="data-programid">dummy-service-name</h3>\n'}
   elif url.path == "/ohjelmaopas/ohjelma/1239":
-    return {'status_code': 200, 'content': '\n<p itemprop="name">dummy-channel-name</p>\n'
-              + '<p itemprop="description">dummy-service-description</p>\n'
-              + '<span itemprop="startDate">01.02.2014a 13:14</span>\n'
-              + '<h3 itemprop="name" id="data-programid">dummy-service-name</h3>\n'}
+    return {'status_code': 200, 'content': b'\n<p itemprop="name">dummy-channel-name</p>\n'
+              + b'<p itemprop="description">dummy-service-description</p>\n'
+              + b'<span itemprop="startDate">01.02.2014a 13:14</span>\n'
+              + b'<h3 itemprop="name" id="data-programid">dummy-service-name</h3>\n'}
   else:
     return {'status_code': 500}
 
