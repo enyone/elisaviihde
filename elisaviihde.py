@@ -11,6 +11,7 @@ class elisaviihde:
   # Init vars
   verbose = False
   baseurl = "https://elisaviihde.fi"
+  legacyurl = "http://api.elisaviihde.fi"
   ssobaseurl = "https://id.elisa.fi"
   session = None
   authcode = None
@@ -218,7 +219,7 @@ class elisaviihde:
     for line in uridata.text.split("\n"):
       if "recording-player" in line:
         return re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)[0]
-
+  
   def markwatched(self, programid=0):
     # Mark recording as watched
     if self.verbose: print("Marking as watched...")
@@ -227,4 +228,13 @@ class elisaviihde:
                                headers={"X-Requested-With": "XMLHttpRequest"},
                                verify=self.verifycerts)
     self.checkrequest(watched.status_code)
+  
+  def login_legacy(self, username, password):
+    # Handle login to legacy api
+    raise Exception("Not implemented")
+  
+  def getlegacyuri(self, programid=0):
+    # Parse recording stream uri for program
+    self.checklogged()
+    return "%s/etvrecorder/program.sl?programid=%s&ajax" % (self.legacyurl, programid)
 
