@@ -1,7 +1,12 @@
+# Patch using Elisa old ajax api for streaming
+#
+# Search and replace "inserthereyouruseraccount" with your Elisa account
+#                    "inserthereyourpassword"    with your Elisa password
+
 # Elisa Viihde API Python implementation
 # License: GPLv3
 # Author: enyone
-# Version: 1.4
+# Version: 1.3
 # https://github.com/enyone/elisaviihde
 
 import requests, json, re, time, datetime, math
@@ -10,6 +15,7 @@ class elisaviihde:
   # Init args
   verbose = False
   baseurl = "https://elisaviihde.fi"
+  hjbaseurl = "https://api.elisaviihde.fi/etvrecorder"
   ssobaseurl = "https://id.elisa.fi"
   session = None
   authcode = None
@@ -212,18 +218,15 @@ class elisaviihde:
     # Parse recording stream uri for program
     self.checklogged()
     if self.verbose: print "Getting stream uri info..."
-    uridata = self.session.get(self.baseurl + "/tallenteet/katso/" + str(programid), verify=self.verifycerts)
+    
+    uridata = self.session.get(self.hjbaseurl + "/default.sl?username=inserthereyouruseraccount&password=inserthereyouruserpassword&ajax", verify=self.verifycerts)
+    uridata = self.session.get(self.hjbaseurl + "/program.sl?programid=" + str(programid) + "&username=inserthereyouruseraccount&password=inserthereyouruserpassword&ajax", verify=self.verifycerts)
+	# uridata = self.session.get(self.baseurl + "/tallenteet/katso/" + str(programid), verify=self.verifycerts)
     self.checkrequest(uridata.status_code)
     for line in uridata.text.split("\n"):
-      if "recording-player" in line:
+      if "uid=inserthereyouruseraccount" in line:
         return re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', line)[0]
 
   def markwatched(self, programid=0):
     # Mark recording as watched
-    if self.verbose: print "Marking as watched..."
-    self.checklogged()
-    watched = self.session.get(self.baseurl + "/tallenteet/api/watched/" + str(programid),
-                               headers={"X-Requested-With": "XMLHttpRequest"},
-                               verify=self.verifycerts)
-    self.checkrequest(watched.status_code)
-
+    pass
